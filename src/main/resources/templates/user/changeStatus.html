@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head" />
+<body>
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<p align="left"><a href="/user/listIncidencias" th:text="Atrás"></a></p>
+		<h2 th:text="'Cambiar estado'"></h2>
+		<form class="form-horizontal" method="post" th:action="${'/user/changeStatus/' + idIncidencia}">  
+			<div class="form-group">
+				<label class="control-label col-sm-2" for=role">Estado:</label>
+				<div class="col-sm-10">
+					<select id="estado" class="form-control" name="estado">
+						<option th:each="estado : ${estadosList}" th:value="${estado}" th:text="${estado}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary">Enviar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

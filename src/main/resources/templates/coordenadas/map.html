@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<h1>Ubicación de la incidencia</h1>
+<p align="left"><a href="/user/listIncidencias" th:text="Atrás"></a></p>
+<style type="text/css">
+div#map_container {
+	width: 100%;
+	height: 350px;
+}
+</style>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKrZ_YQOFfUy6ZJSDQbPIdkq5LBhtJqaI"></script>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+  function loadMap() {
+	var latitud = [[${latitud}]];
+	var longitud = [[${longitud}]];
+		
+    var latlng = new google.maps.LatLng(latitud, longitud); 
+    var myOptions = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_container"),myOptions);
+	
+    var marker = new google.maps.Marker({
+      position: latlng, 
+      map: map, 
+      title:"INCIDENCIA AQUÍ"
+    }); 
+  
+  }	/*]]>*/
+</script>
+</head>
+
+<body onload="loadMap()">
+	<div id="map_container"></div>
+</body>
+
+</html>

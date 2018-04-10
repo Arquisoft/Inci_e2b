@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+<h1>Enviar incidencia</h1>
+<form id="rendered-form" action="/input" method="post">
+<div class="rendered-form">
+<div class="fb-text form-group field-usuario">
+<label for="usuario" class="fb-text-label">Usuario<span class="fb-required">*</span></label>
+<input type="text" class="form-control" name="usuario" id="usuario" required="required" aria-required="true">
+</div>
+<div class="fb-text form-group field-password">
+<label for="password" class="fb-text-label">Contraseña<span class="fb-required">*</span></label>
+<input type="password" class="form-control" name="password" id="password" required="required" aria-required="true"></div>
+<div class="fb-text form-group field-nombre"><label for="nombre" class="fb-text-label">Nombre<span class="fb-required">*</span></label>
+<input type="text" class="form-control" name="nombre" id="nombre" required="required" aria-required="true"></div>
+<div class="fb-textarea form-group field-descripcion"><label for="descripcion" class="fb-textarea-label">Descripcion<span class="fb-required">*</span></label>
+<textarea type="textarea" class="form-control" name="descripcion" id="descripcion" required="required" aria-required="true"></textarea></div>
+<div class="fb-text form-group field-localizacion"><label for="localizacion" class="fb-text-label">Localizacion<span class="fb-required">*</span></label>
+<input type="text" class="form-control" name="localizacion" id="localizacion" required="required" aria-required="true"></div><div class="fb-textarea form-group field-etiquetas">
+<label for="etiquetas" class="fb-textarea-label">Etiquetas</label>
+<textarea type="textarea" placeholder="Lista de palabras separadas por comas que permitirán categorizar las incidencias" class="form-control" name="etiquetas" id="etiquetas" title="Lista de palabras separadas por comas que permitirán categorizar las incidencias">
+</textarea>
+</div>
+<button type="submit" class="btn btn-primary" name="button-1521897076876" style="primary" id="button-1521897076876">Enviar</button>
+</div>
+</form>
+<br>
+<div th:switch="${succsed}">
+<div th:case="true" class="alert alert-success">
+  <strong>Enviado</strong> La incidencia se ha enviado con exito
+</div>
+<div th:case="false" class="alert alert-danger">
+  <strong>Error </strong><i th:text="${error}"></i>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head" />
+<body>
+<nav th:replace="fragments/nav" />
+<div class="container">
+    <h1 th:text="Incidencias"></h1>
+    <div class="table-responsive">
+        <table class="table table-hover" th:fragment="tableListIcidencias"
+               id="tableListIncidencias">
+            <thead>
+            <tr>
+                <th>Tipo de dato</th>
+                <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="field : ${fields}">
+                <td th:if="${field.key} == 'temp'">Temperatura</td>
+                <td th:if="${field.key} == 'wspeed'">Velocidad del viento</td>
+                <td th:text="${field.value}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr />
+    </div>
+</div>
+</body>
+</html>

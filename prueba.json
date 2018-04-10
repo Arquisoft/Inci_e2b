@@ -1,0 +1,35 @@
+{  
+   "nombreUsuario":"Raul",
+   "nombre":"Incendio",
+   "descripcion":"Se ha provocado un incendio en el monte Naranco",
+   "coordenadas":{  
+      "X":"-5.866667",
+      "Y":"43.383333"
+   },
+   "comentarios":[  
+      {  
+         "texto":"He llegado y he visto un humo detrás de unos arbustos, no pensaba que sería un incendio"
+      },
+      {  
+         "texto":"Hemos llamado a la policia hace media hora y no han llegado todavia"
+      }
+   ],
+   "campos":[
+   	  {
+   		"temp":"45"
+   	   },
+   	   {
+   		"wspeed":"20"
+   	   }
+   ],
+   "etiquetas":[
+   	  {
+   	  	"texto":"Incendio"
+   	  },
+   	  {
+   	  	"texto":"bosque"
+   	  }
+   ],
+   "estado":"ABIERTA",
+   "fecha":"11-6-2017"
+}

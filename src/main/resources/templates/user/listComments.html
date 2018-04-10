@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head" />
+<body>
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<p align="left"><a href="/user/listIncidencias" th:text="Atrás"></a></p>
+		<h1 th:text="Comentarios"></h1>
+		<div class="table-responsive">
+			<table class="table table-hover" th:fragment="tableListComments"
+				id="tableListComments">
+				<thead>
+					<tr>
+						<th th:text="Comentario"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="comment : ${commentsList}">
+						<td th:text="${comment.texto}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<p align="center"><a th:href="${'/user/addComment/' + idIncidencia}" th:text="'Añadir comentario'"></a>
+			</p> 
+			<hr />
+		</div>
+	</div>
+</body>
+</html>
