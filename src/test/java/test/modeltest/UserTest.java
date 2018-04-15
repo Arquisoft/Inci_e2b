@@ -5,8 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import inci.entities.Ciudadano;
+import inci.entities.Entidad;
+import inci.entities.Location;
+import inci.entities.Sensor;
+import inci.entities.Usuario;
 import inci.loader.model.*;
-import inci.loader.model.types.Location;
 
 public class UserTest {
 

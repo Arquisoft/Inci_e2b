@@ -2,7 +2,7 @@ package inci.loader.persistence;
 
 import java.util.List;
 
-import inci.loader.model.Usuario;
+import inci.entities.Usuario;
 import inci.loader.persistence.util.Jpa;
 
 public class UserFinder {

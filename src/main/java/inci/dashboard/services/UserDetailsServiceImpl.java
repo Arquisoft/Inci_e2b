@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	if (user != null) {
 	    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 	    grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-	    return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+	    return new inci.entities.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 		    grantedAuthorities);
 	} else {
 	    throw new UsernameNotFoundException("User not found");

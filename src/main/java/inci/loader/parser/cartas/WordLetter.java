@@ -8,8 +8,8 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import inci.loader.model.Ciudadano;
-import inci.loader.model.Usuario;
+import inci.entities.Ciudadano;
+import inci.entities.Usuario;
 
 public class WordLetter extends Letter {
 

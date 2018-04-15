@@ -8,6 +8,10 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 
+import inci.entities.Ciudadano;
+import inci.entities.Entidad;
+import inci.entities.Sensor;
+import inci.entities.Usuario;
 import inci.loader.model.*;
 
 public class PdfLetter extends Letter{

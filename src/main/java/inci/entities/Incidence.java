@@ -1,4 +1,4 @@
-package inciDashboard.entities;
+package inci.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +25,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Incidencia {
+public class Incidence {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -49,6 +49,7 @@ public class Incidencia {
 	@Column(name = "VALUE")
 	private Map<String, String> campos = new HashMap<String, String>(); // Resto de valores que pueden variar
 																		// dependiendo de la incidencia
+	private String password;
 
 	@ElementCollection
 	@CollectionTable(name = "tags")
@@ -60,10 +61,12 @@ public class Incidencia {
 
 	private boolean danger = false;
 
-	public Incidencia() {
+	private String extra;
+
+	public Incidence() {
 	}
 
-	public Incidencia(String nombreUsuario, String nombre, String descripcion, Coordenadas coordenadas, Date caducidad,
+	public Incidence(String nombreUsuario, String nombre, String descripcion, Coordenadas coordenadas, Date caducidad,
 			User user, Map<String, String> campos, List<String> etiquetas) {
 		super();
 		this.nombreUsuario = nombreUsuario;
@@ -182,12 +185,16 @@ public class Incidencia {
 	public List<String> getEtiquetas() {
 		return etiquetas;
 	}
-	
+
 	public String listEtiquetas() {
 		String lista = "";
-		for(String tag : etiquetas)
-			lista = lista.concat(tag +", ");
-		return (lista!="") ? lista.substring(0, lista.length()-1) : lista;
+		for (String tag : etiquetas)
+			lista = lista.concat(tag + ", ");
+		return (lista != "") ? lista.substring(0, lista.length() - 1) : lista;
+	}
+
+	public String getExtra() {
+		return extra;
 	}
 
 	@Override
@@ -207,7 +214,7 @@ public class Incidencia {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Incidencia other = (Incidencia) obj;
+		Incidence other = (Incidence) obj;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;

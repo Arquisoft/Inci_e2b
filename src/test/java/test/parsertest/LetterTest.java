@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.lowagie.text.DocumentException;
 
-import inci.loader.model.Ciudadano;
+import inci.entities.Ciudadano;
 import inci.loader.parser.cartas.*;
 
 public class LetterTest {

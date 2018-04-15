@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 
-import inci.loader.model.Usuario;
+import inci.entities.Usuario;
 import inci.loader.parser.cartas.LetterGenerator;
 import inci.loader.persistence.UserFinder;
 import inci.loader.persistence.util.Jpa;

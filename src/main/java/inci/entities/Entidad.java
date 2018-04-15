@@ -1,4 +1,4 @@
-package inci.loader.model;
+package inci.entities;
 
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Ciudadanos")
 @DiscriminatorValue("Ciudadanos")
-public class Entidad extends Usuario implements Serializable {
+public class Entidad extends User implements Serializable {
 	/**
 	 * 
 	 */
@@ -18,7 +18,7 @@ public class Entidad extends Usuario implements Serializable {
 	}
 
 	public Entidad(String nombre, String email, String code) {
-		setNombre(nombre);
+		setName(nombre);
 		setEmail(email);
 		setCodigo(code);
 	}

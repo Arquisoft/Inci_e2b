@@ -2,9 +2,9 @@ package inci.loader.parser;
 
 import java.util.List;
 
+import inci.entities.Usuario;
 import inci.loader.dbupdate.Insert;
 import inci.loader.dbupdate.InsertP;
-import inci.loader.model.Usuario;
 import inci.loader.persistence.UserFinder;
 
 public class InsertR implements Insert {

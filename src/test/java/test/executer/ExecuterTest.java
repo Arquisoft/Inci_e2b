@@ -12,9 +12,9 @@ import org.junit.Test;
 
 import com.lowagie.text.DocumentException;
 
+import inci.entities.Ciudadano;
+import inci.entities.Usuario;
 import inci.loader.executer.ActionSingleton;
-import inci.loader.model.Ciudadano;
-import inci.loader.model.Usuario;
 import inci.loader.persistence.UserFinder;
 import inci.loader.persistence.util.Jpa;
 

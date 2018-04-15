@@ -20,10 +20,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.lowagie.text.DocumentException;
 
+import inci.entities.Ciudadano;
+import inci.entities.Entidad;
+import inci.entities.Location;
+import inci.entities.Sensor;
+import inci.entities.Usuario;
 import inci.loader.executer.ActionFacade;
 import inci.loader.executer.ActionFacadeClass;
 import inci.loader.model.*;
-import inci.loader.model.types.Location;
 import inci.loader.parser.agentes.ParserCSV;
 import inci.loader.reportwriter.ReportWriter;
 

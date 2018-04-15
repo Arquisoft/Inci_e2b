@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.lowagie.text.DocumentException;
 
-import inci.loader.model.Usuario;
+import inci.entities.Usuario;
 
 public interface ActionFacade {
 	public void saveData(Usuario usuario) throws FileNotFoundException, DocumentException, IOException;

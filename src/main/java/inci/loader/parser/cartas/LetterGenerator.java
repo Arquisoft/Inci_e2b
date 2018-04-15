@@ -1,6 +1,6 @@
 package inci.loader.parser.cartas;
 
-import inci.loader.model.Usuario;
+import inci.entities.Usuario;
 
 public final class LetterGenerator {
 	

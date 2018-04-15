@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.lowagie.text.DocumentException;
 
-import inci.loader.model.Usuario;
+import inci.entities.Usuario;
 import inci.loader.parser.RList;
 import inci.loader.parser.ReaderSingleton;
 import inci.loader.persistence.UserFinder;

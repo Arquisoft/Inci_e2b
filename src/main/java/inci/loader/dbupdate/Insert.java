@@ -2,7 +2,7 @@ package inci.loader.dbupdate;
 
 import java.util.List;
 
-import inci.loader.model.Usuario;
+import inci.entities.Usuario;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package inci.agents.dbManagement.model;
+package inci.entities;
 
 import java.io.IOException;
 import java.util.Map;
@@ -9,18 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import asw.agents.util.Utilidades;
+import inci.agents.util.Utilidades;
 
 @Entity
 @Table(name = "Agent")
 public class Agent {
-	
-	
+
 	private static Map<String, String> kindValues;
-	
-	
+
 	private static String getKind(String key) {
-		if(kindValues == null) {
+		if (kindValues == null) {
 			try {
 				kindValues = Utilidades.read("src/main/resources/users.csv");
 			} catch (IOException e) {
@@ -29,9 +27,8 @@ public class Agent {
 			}
 		}
 		String v = kindValues.get(key);
-		return v == null? key : v;
-		
-		
+		return v == null ? key : v;
+
 	}
 
 	// Id generado automáticamente para diferenciar cada uno (para mapear)
@@ -60,11 +57,7 @@ public class Agent {
 	Agent() {
 	}
 
-
-	
-	
-
-	public Agent(String nombre, String password,String email, String localizacion,  String ident, Integer kind) {
+	public Agent(String nombre, String password, String email, String localizacion, String ident, Integer kind) {
 		super();
 		this.nombre = nombre;
 		this.localizacion = localizacion;
@@ -73,11 +66,10 @@ public class Agent {
 		this.password = password;
 		this.kind = kind;
 	}
-	
-	public Agent(String nombre , String email,String password, String ident,  Integer kind) {
-		this(nombre,password, email,"" ,ident, kind);
-	}
 
+	public Agent(String nombre, String email, String password, String ident, Integer kind) {
+		this(nombre, password, email, "", ident, kind);
+	}
 
 	public Long getId() {
 		return id;
@@ -110,9 +102,9 @@ public class Agent {
 	public String getIdent() {
 		return ident;
 	}
-	
-	public String getKind(){
-		//Temporal
+
+	public String getKind() {
+		// Temporal
 		return getKind(String.valueOf(getKindCode()));
 	}
 

@@ -5,8 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-import inci.loader.model.Ciudadano;
-import inci.loader.model.Usuario;
+import inci.entities.Ciudadano;
+import inci.entities.Usuario;
 
 public class TxtLetter extends Letter{
 	
