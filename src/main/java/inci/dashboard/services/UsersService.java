@@ -1,4 +1,4 @@
-package inciDashboard.services;
+package inci.dashboard.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import inciDashboard.entities.User;
-import inciDashboard.repositories.UsersRepository;
+import inci.entities.User;
+import inci.repositories.UsersRepository;
 
 @Service
 public class UsersService {

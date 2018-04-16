@@ -1,7 +1,7 @@
 package inci.loader.parser.cartas;
 
-import inci.entities.Usuario;
+import inci.entities.User;
 
 public abstract class Letter {
-		public abstract void createLetter(Usuario Usuario);
+    public abstract void createLetter(User Usuario);
 }

@@ -11,45 +11,41 @@ import com.lowagie.text.pdf.PdfWriter;
 import inci.entities.Ciudadano;
 import inci.entities.Entidad;
 import inci.entities.Sensor;
-import inci.entities.Usuario;
-import inci.loader.model.*;
+import inci.entities.User;
 
-public class PdfLetter extends Letter{
-	
-	public  void createLetter(Usuario Usuario){
-		Document document = null;
-		FileOutputStream letter = null;
-		try {
-		letter = new FileOutputStream(
-				"cartas/pdf/" + Usuario.getCodigo() + ".pdf");
-		document = new Document();
-		PdfWriter.getInstance(document, letter);
-		document.open();
-		if(Usuario instanceof Ciudadano) {
-			document.add(new Paragraph("Usuario: " + ((Ciudadano)Usuario).getUsername()
-			+ "\n Password: " + ((Ciudadano)Usuario).getPassword()));
-		}
-		if(Usuario instanceof Sensor) {
-			document.add(new Paragraph("Usuario: " + ((Sensor)Usuario).getNombre()
-			+ "\n Código: " + ((Sensor)Usuario).getCodigo()));
-		}
-		if(Usuario instanceof Entidad) {
-			document.add(new Paragraph("Usuario: " + ((Entidad)Usuario).getNombre()
-			+ "\n Código: " + ((Entidad)Usuario).getCodigo()));
-		}
-				
-		
-		System.out.println("Se ha generado la carta " + Usuario.getCodigo() + ".pdf correctamente.");
-		} catch(DocumentException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		finally {
-			document.close();
-		}
-		
-		
+public class PdfLetter extends Letter {
+
+    public void createLetter(User Usuario) {
+	Document document = null;
+	FileOutputStream letter = null;
+	try {
+	    letter = new FileOutputStream("cartas/pdf/" + Usuario.getCodigo() + ".pdf");
+	    document = new Document();
+	    PdfWriter.getInstance(document, letter);
+	    document.open();
+	    if (Usuario instanceof Ciudadano) {
+		document.add(new Paragraph("Usuario: " + ((Ciudadano) Usuario).getUsername() + "\n Password: "
+			+ ((Ciudadano) Usuario).getPassword()));
+	    }
+	    if (Usuario instanceof Sensor) {
+		document.add(new Paragraph(
+			"Usuario: " + ((Sensor) Usuario).getNombre() + "\n Código: " + ((Sensor) Usuario).getCodigo()));
+	    }
+	    if (Usuario instanceof Entidad) {
+		document.add(new Paragraph("Usuario: " + ((Entidad) Usuario).getNombre() + "\n Código: "
+			+ ((Entidad) Usuario).getCodigo()));
+	    }
+
+	    System.out.println("Se ha generado la carta " + Usuario.getCodigo() + ".pdf correctamente.");
+	} catch (DocumentException e) {
+	    e.printStackTrace();
+	} catch (FileNotFoundException e) {
+	    e.printStackTrace();
 	}
+
+	finally {
+	    document.close();
+	}
+
+    }
 }

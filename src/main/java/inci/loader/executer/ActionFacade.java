@@ -5,9 +5,10 @@ import java.io.IOException;
 
 import com.lowagie.text.DocumentException;
 
-import inci.entities.Usuario;
+import inci.entities.User;
 
 public interface ActionFacade {
-	public void saveData(Usuario usuario) throws FileNotFoundException, DocumentException, IOException;
-	// public void verifySecurity();  Esto es una ampliacion opcional y no se en que consiste
+    public void saveData(User usuario) throws FileNotFoundException, DocumentException, IOException;
+    // public void verifySecurity(); Esto es una ampliacion opcional y no se en que
+    // consiste
 }

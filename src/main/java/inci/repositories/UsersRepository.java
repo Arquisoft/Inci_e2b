@@ -1,4 +1,4 @@
-package inciDashboard.repositories;
+package inci.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 

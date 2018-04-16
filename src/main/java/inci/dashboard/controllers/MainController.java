@@ -1,4 +1,4 @@
-package inciDashboard.controllers;
+package inci.dashboard.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package inciDashboard.services;
+package inci.dashboard.services;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import inciDashboard.entities.User;
-import inciDashboard.repositories.UsersRepository;
+import inci.entities.User;
+import inci.repositories.UsersRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

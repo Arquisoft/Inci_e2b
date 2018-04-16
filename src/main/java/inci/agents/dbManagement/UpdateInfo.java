@@ -1,12 +1,12 @@
 package inci.agents.dbManagement;
 
-import asw.dbManagement.model.Agent;
+import inci.entities.Agent;
 
 public interface UpdateInfo {
-	/**
-	 * Permite la solicitud de cambio de contraseña
-	 */
-	public void updatePassword(Agent agent, String password, String newPassword);
-	
-	public void updateEmail(Agent agent, String email);
+    /**
+     * Permite la solicitud de cambio de contraseña
+     */
+    public void updatePassword(Agent agent, String password, String newPassword);
+
+    public void updateEmail(Agent agent, String email);
 }

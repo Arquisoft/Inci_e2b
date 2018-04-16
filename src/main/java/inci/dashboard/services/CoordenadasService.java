@@ -1,10 +1,10 @@
-package inciDashboard.services;
+package inci.dashboard.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import inciDashboard.entities.Coordenadas;
-import inciDashboard.repositories.CoordenadasRepository;
+import inci.entities.Coordenadas;
+import inci.repositories.CoordenadasRepository;
 
 @Service
 public class CoordenadasService {
@@ -14,6 +14,5 @@ public class CoordenadasService {
     public void addCoordenadas(Coordenadas user) {
 	coordenadasRepository.save(user);
     }
-
 
 }

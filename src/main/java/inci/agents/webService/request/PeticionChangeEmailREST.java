@@ -2,43 +2,43 @@ package inci.agents.webService.request;
 
 public class PeticionChangeEmailREST {
 
-	private String email;
-	private String password;
-	private String newEmail;
-	
-	public PeticionChangeEmailREST() {
+    private String email;
+    private String password;
+    private String newEmail;
 
-	}
+    public PeticionChangeEmailREST() {
 
-	public PeticionChangeEmailREST(String email, String password, String newEmail) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.newEmail = newEmail;
-	}
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public PeticionChangeEmailREST(String email, String password, String newEmail) {
+	super();
+	this.email = email;
+	this.password = password;
+	this.newEmail = newEmail;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+	return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setEmail(String email) {
+	this.email = email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+	return password;
+    }
 
-	public String getNewEmail() {
-		return newEmail;
-	}
+    public void setPassword(String password) {
+	this.password = password;
+    }
 
-	public void setNewEmail(String newEmail) {
-		this.newEmail = newEmail;
-	}
+    public String getNewEmail() {
+	return newEmail;
+    }
+
+    public void setNewEmail(String newEmail) {
+	this.newEmail = newEmail;
+    }
 
 }

@@ -9,33 +9,33 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import inci.entities.Ciudadano;
-import inci.entities.Usuario;
+import inci.entities.User;
 
 public class WordLetter extends Letter {
 
-	public void createLetter(Usuario user) {
-		XWPFDocument documento = new XWPFDocument();
-		File folder = new File("carta/word");
-		folder.mkdir();
-		try {
-			FileOutputStream carta = new FileOutputStream("cartas/word/" + user.getCodigo() + ".docx");
-			XWPFParagraph paragraph = documento.createParagraph();
-			XWPFRun run = paragraph.createRun();
-			if (user instanceof Ciudadano) {
-				run.setText("Usuario: " + ((Ciudadano) user).getUsername());
-				run.addBreak();
-				run.setText("Password: " + ((Ciudadano) user).getPassword());
-			}
-			documento.write(carta);
+    public void createLetter(User user) {
+	XWPFDocument documento = new XWPFDocument();
+	File folder = new File("carta/word");
+	folder.mkdir();
+	try {
+	    FileOutputStream carta = new FileOutputStream("cartas/word/" + user.getCodigo() + ".docx");
+	    XWPFParagraph paragraph = documento.createParagraph();
+	    XWPFRun run = paragraph.createRun();
+	    if (user instanceof Ciudadano) {
+		run.setText("Usuario: " + ((Ciudadano) user).getUsername());
+		run.addBreak();
+		run.setText("Password: " + ((Ciudadano) user).getPassword());
+	    }
+	    documento.write(carta);
 
-			documento.close();
+	    documento.close();
 
-			carta.close();
+	    carta.close();
 
-			System.out.println("Se ha generado la carta " + user.getCodigo() + ".docx correctamente.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+	    System.out.println("Se ha generado la carta " + user.getCodigo() + ".docx correctamente.");
+	} catch (IOException e) {
+	    e.printStackTrace();
 	}
+
+    }
 }

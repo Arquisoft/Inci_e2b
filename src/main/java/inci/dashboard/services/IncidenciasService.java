@@ -1,4 +1,4 @@
-package inciDashboard.services;
+package inci.dashboard.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,35 +7,36 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import inciDashboard.entities.InciStatus;
+import inci.entities.InciStatus;
+import inci.entities.Incidence;
+import inci.entities.User;
+import inci.repositories.IncidenciasRepository;
 import inciDashboard.entities.Incidencia;
-import inciDashboard.entities.User;
-import inciDashboard.repositories.IncidenciasRepository;
 
 @Service
 public class IncidenciasService {
     @Autowired
     private IncidenciasRepository incidenciasRepository;
 
-    public List<Incidencia> getIncidencias() {
-	List<Incidencia> incidencias = new ArrayList<Incidencia>();
+    public List<Incidence> getIncidencias() {
+	List<Incidence> incidencias = new ArrayList<Incidence>();
 	incidenciasRepository.findAll().forEach(incidencias::add);
 	return incidencias;
     }
 
-    public Incidencia getIncidencia(Long id) {
+    public Incidence getIncidencia(Long id) {
 	return incidenciasRepository.findOne(id);
     }
 
-    public void addIndicencia(Incidencia incidencia) {
+    public void addIndicencia(Incidence incidencia) {
 	incidenciasRepository.save(incidencia);
     }
 
     public void deleteIncidencia(Long id) {
 	incidenciasRepository.delete(id);
     }
-    
-    public List<Incidencia> getIncidenciasByUser(User user){
+
+    public List<Incidence> getIncidenciasByUser(User user) {
 	return incidenciasRepository.findAllByUser(user);
     }
 
@@ -44,24 +45,26 @@ public class IncidenciasService {
     }
 
     public Map<String, String> getDangerousValues(Long id) {
-        return getDangerousValuesAux(incidenciasRepository.getDangerousValues(id).getCampos());
+	return getDangerousValuesAux(incidenciasRepository.getDangerousValues(id).getCampos());
     }
 
     private Map<String, String> getDangerousValuesAux(Map<String, String> fields) {
-        for (Map.Entry<String, String> entry : fields.entrySet()) {
-            if (entry.getKey().equals("temp")) {
-                int temp = Integer.valueOf(entry.getValue());
-                {
-                    if (temp <= 40 || temp >= 1) fields.remove(entry);
-                }
-            } else if (entry.getKey().equals("wspeed")) {
-                int speed = Integer.valueOf(entry.getValue());
-                {
-                    if (speed <= 60 || speed >= 5) fields.remove(entry);
-                }
-            }
-        }
-        return fields;
+	for (Map.Entry<String, String> entry : fields.entrySet()) {
+	    if (entry.getKey().equals("temp")) {
+		int temp = Integer.valueOf(entry.getValue());
+		{
+		    if (temp <= 40 || temp >= 1)
+			fields.remove(entry);
+		}
+	    } else if (entry.getKey().equals("wspeed")) {
+		int speed = Integer.valueOf(entry.getValue());
+		{
+		    if (speed <= 60 || speed >= 5)
+			fields.remove(entry);
+		}
+	    }
+	}
+	return fields;
     }
-    
+
 }

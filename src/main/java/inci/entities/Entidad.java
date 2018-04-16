@@ -9,18 +9,18 @@ import javax.persistence.Table;
 @Table(name = "Ciudadanos")
 @DiscriminatorValue("Ciudadanos")
 public class Entidad extends User implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	Entidad() {
-	}
+    Entidad() {
+    }
 
-	public Entidad(String nombre, String email, String code) {
-		setName(nombre);
-		setEmail(email);
-		setCodigo(code);
-	}
+    public Entidad(String nombre, String email, String code) {
+	setName(nombre);
+	setEmail(email);
+	setCodigo(code);
+    }
 
 }

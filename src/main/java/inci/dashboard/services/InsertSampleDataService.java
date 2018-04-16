@@ -1,4 +1,4 @@
-package inciDashboard.services;
+package inci.dashboard.services;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,10 +11,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import inciDashboard.entities.Comentario;
-import inciDashboard.entities.Coordenadas;
-import inciDashboard.entities.Incidencia;
-import inciDashboard.entities.User;
+import inci.entities.Comentario;
+import inci.entities.Coordenadas;
+import inci.entities.Incidence;
+import inci.entities.User;
 
 @Service
 public class InsertSampleDataService {
@@ -44,7 +44,7 @@ public class InsertSampleDataService {
 	Coordenadas coord2 = new Coordenadas(43.3579649, -5.8733862);
 	coordenadasService.addCoordenadas(coord1);
 	coordenadasService.addCoordenadas(coord2);
-	
+
 	Map<String, String> campos1 = new HashMap<String, String>();
 	campos1.put("temp", "50");
 	campos1.put("wspeed", "20");
@@ -53,7 +53,7 @@ public class InsertSampleDataService {
 	Map<String, String> campos3 = new HashMap<String, String>();
 	campos3.put("temp", "22");
 	campos3.put("wspeed", "24");
-	
+
 	List<String> tags1 = new ArrayList<String>();
 	tags1.add("Temperatura Alta");
 	tags1.add("Bosque");
@@ -64,12 +64,13 @@ public class InsertSampleDataService {
 	tags3.add("Obstáculo");
 	tags3.add("Bosque");
 
-	Incidencia inci1 = new Incidencia("Sandra", "Incidencia en el bosque", "Temperaturas por encima de 40 grados",
+	Incidence inci1 = new Incidence("Sandra", "Incidencia en el bosque", "Temperaturas por encima de 40 grados",
 		coord1, new Date(), user1, campos1, tags1);
-	Incidencia inci2 = new Incidencia("Juan", "Incidencia en el río", "Río desbordándose", coord2, new Date(), user2, campos2, tags2);
-	Incidencia inci3 = new Incidencia("Sandra", "Incidencia en el bosque oeste", "Tronco caído", coord1, new Date(), user1, campos3, tags3);
-		
-	
+	Incidence inci2 = new Incidence("Juan", "Incidencia en el río", "Río desbordándose", coord2, new Date(),
+		user2, campos2, tags2);
+	Incidence inci3 = new Incidence("Sandra", "Incidencia en el bosque oeste", "Tronco caído", coord1, new Date(),
+		user1, campos3, tags3);
+
 	incidenciasService.addIndicencia(inci1);
 	incidenciasService.addIndicencia(inci2);
 	incidenciasService.addIndicencia(inci3);

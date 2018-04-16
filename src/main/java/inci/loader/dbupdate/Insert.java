@@ -2,18 +2,17 @@ package inci.loader.dbupdate;
 
 import java.util.List;
 
-import inci.entities.Usuario;
+import inci.entities.User;
 
 /**
  * 
- * @author Ignacio Escribano Burgos
- * Gestiona la conexión con la base de datos
+ * @author Ignacio Escribano Burgos Gestiona la conexión con la base de datos
  *
  */
 public interface Insert {
-	List<Usuario> findByEmail(String email);
+    List<User> findByEmail(String email);
 
-	Usuario save(Usuario user);
+    User save(User user);
 
-	List<Usuario> findByDNI(String dni);
+    List<User> findByDNI(String dni);
 }

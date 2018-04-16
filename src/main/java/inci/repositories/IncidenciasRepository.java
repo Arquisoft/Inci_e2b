@@ -1,4 +1,4 @@
-package inciDashboard.repositories;
+package inci.repositories;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,8 @@ public interface IncidenciasRepository extends CrudRepository<Incidencia, Long> 
 
     @Query("UPDATE Incidencia i SET i.estado = ?1  WHERE i.id = ?2")
     void setStatus(Enum<InciStatus> estado, Long idIncidencia);
-//    @Query("SELECT c.KEY, c.VALUE FROM CAMPOS c WHERE c.INCIDENCIA_ID = ?1")
+
+    // @Query("SELECT c.KEY, c.VALUE FROM CAMPOS c WHERE c.INCIDENCIA_ID = ?1")
     @Query("SELECT i FROM Incidencia i WHERE i.id = ?1")
     Incidencia getDangerousValues(Long id);
 }

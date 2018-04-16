@@ -1,7 +1,7 @@
-package inciDashboard.controllers;
+package inci.dashboard.controllers;
 
-import inciDashboard.entities.Incidencia;
-import inciDashboard.services.IncidenciasService;
+import inci.entities.Incidence;;
+import inci.dashboard.services.IncidenciasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +20,8 @@ public class IncidenciasController {
 
     @RequestMapping(value = "/incidence/{id}", method = RequestMethod.GET)
     public String getIncidenceDangerousValues(Model model, @PathVariable Long id) {
-        model.addAttribute("fields", incidenciasService.getDangerousValues(id));
-        return "incidences/dangerousFields";
+	model.addAttribute("fields", incidenciasService.getDangerousValues(id));
+	return "incidences/dangerousFields";
     }
 
 }

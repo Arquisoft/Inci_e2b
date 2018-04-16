@@ -5,16 +5,16 @@ import java.io.IOException;
 
 import com.lowagie.text.DocumentException;
 
-import inci.entities.Usuario;
+import inci.entities.User;
 import inci.loader.dbupdate.Insert;
 import inci.loader.dbupdate.InsertP;
 
 public class ActionFacadeClass implements ActionFacade {
 
-	@Override
-	public void saveData(Usuario user) throws FileNotFoundException, DocumentException, IOException {
-		Insert insert = new InsertP();
-		insert.save(user);
-			
-	}
+    @Override
+    public void saveData(User user) throws FileNotFoundException, DocumentException, IOException {
+	Insert insert = new InsertP();
+	insert.save(user);
+
+    }
 }
