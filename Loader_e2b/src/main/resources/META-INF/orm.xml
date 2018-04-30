@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+    version="2.0">
+
+    <!-- Aqui van las consultas sql (Finder, en un futuro) -->
+    <!-- Ejemplo consulta -->
+    <named-query name="Agent.findByIdent">
+        <query>select u from Agent u where u.ident = ?1</query>
+    </named-query>
+
+    <named-query name="Agent.findByEmail">
+        <query>select u from Agent u where u.email = ?1</query>
+    </named-query>
+
+</entity-mappings>
