@@ -1,5 +1,7 @@
 package model;
 
+import model.types.Location;
+
 public abstract class Usuario {
 
 	private Long id;
@@ -7,7 +9,15 @@ public abstract class Usuario {
 	private String email;
 	private String codigo;
 	private String password;
-	
+	private Location location;
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location){
+		this.location = location;
+	}
 	
 
 	public String getNombre() {

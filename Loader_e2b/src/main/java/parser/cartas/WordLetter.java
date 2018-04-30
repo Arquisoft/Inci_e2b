@@ -19,6 +19,7 @@ public class WordLetter extends Letter {
 		folder.mkdir();
 		try {
 			FileOutputStream carta = new FileOutputStream("cartas/word/" + user.getCodigo() + ".docx");
+
 			XWPFParagraph paragraph = documento.createParagraph();
 			XWPFRun run = paragraph.createRun();
 			if (user instanceof Ciudadano) {

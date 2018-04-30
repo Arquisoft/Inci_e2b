@@ -13,7 +13,10 @@ public class TxtLetter extends Letter{
 
 	public void createLetter(Usuario user){
 		try {
-			File letter = new File("cartas/txt/" + user.getCodigo() + ".txt");
+			File letter = new File("./cartas/txt/" + user.getCodigo() + ".txt");
+			if(!letter.exists()){
+				letter.createNewFile();
+			}
 			Writer writer = new FileWriter(letter);
 			if(user instanceof Ciudadano) {
 				writer.write("Usuario: " + ((Ciudadano)user).getUsername() + "\n" + "Password: "

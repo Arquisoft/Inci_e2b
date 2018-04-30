@@ -33,7 +33,8 @@ public class InsertP implements Insert {
 						"Ya existe un usuario con el email " + user.getEmail() + " en la base de datos");
 				trx.rollback();
 			} else {
-				Agent a = new Agent(user.getNombre(), user.getEmail(), user.getPassword(), user.getCodigo(),
+				Agent a = new Agent(user.getNombre(),  user.getPassword(), user.getEmail(),user.getLocation() == null ? "" : user.getLocation().getLongitude() + " " +
+						user.getLocation().getLatitude(),user.getCodigo(),
 						user instanceof Ciudadano ? 1 : (user instanceof Sensor ? 3 : 2));
 				Jpa.getManager().persist(a);
 				trx.commit();
