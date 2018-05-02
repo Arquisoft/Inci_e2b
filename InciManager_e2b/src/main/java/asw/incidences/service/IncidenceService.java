@@ -1,18 +1,17 @@
 package asw.incidences.service;
 
-import java.util.Map;
-
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import asw.dbManagement.model.*;
+import asw.dbManagement.model.parsers.ParserIncidencia;
+import asw.kaffkaManagement.KafkaProducer;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import asw.dbManagement.model.Incidence;
-import asw.kaffkaManagement.KafkaProducer;
+import java.text.ParseException;
+import java.util.*;
 
 @Service
 public class IncidenceService {
@@ -28,7 +27,7 @@ public class IncidenceService {
 		return response;
 	}
 
-	public void sendKaffka(Incidence incidence) {
+	/*public void sendKaffka(Incidencia incidence) {
 		JSONObject json = new JSONObject();
 		json.put("usuario", incidence.getUsuario());
 		json.put("password", incidence.getPassword());
@@ -40,14 +39,51 @@ public class IncidenceService {
 		}
 		json.put("extra", incidence.getExtra());
 		kafkaProducer.send("incidencia", json.toString());
-	}
+	}*/
 	
 	public void sendKaffka(Map<String, Object> payload) {
-		JSONObject json = new JSONObject();
-		for(String k : payload.keySet()){
-			json.put(k, payload.get(json));
-		}
-		kafkaProducer.send("incidencia", json.toString());
-	}
+		Incidencia inc = new Incidencia();
+        inc.setNombreUsuario((String) payload.get("usuario"));
+        inc.setNombre((String) payload.get("nombre"));
+        inc.setCampos(new HashMap<>());
+
+        if( payload.get("etiquetas") == null){
+            inc.setComentarios(new HashSet<>());
+        }else if( payload.get("etiquetas") instanceof  String ){
+            String[] et = ((String) payload.get("etiquetas")).split(",");
+            HashSet<Comentario> cs = new HashSet<>();
+            for(String e :et){
+                cs.add(new Comentario(e));
+            }
+            inc.setComentarios(cs);
+        }else if(payload.get("etiquetas") instanceof  HashSet){
+            HashSet<Comentario> cs = new HashSet<>();
+            for(String e : (HashSet<String>)payload.get("etiquetas")){
+                cs.add(new Comentario(e));
+            }
+            inc.setComentarios(cs);
+        }
+        inc.setCoordenadas(new Coordenadas(Double.valueOf((String) payload.get("latitud")),Double.valueOf((String) payload.get("longitud"))));
+        inc.setDescripcion((String) payload.get("descripcion"));
+        inc.setEstado(InciStatus.ABIERTA);
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 3);
+        dt = c.getTime();
+        inc.setCaducidad(dt);
+        User u = new User();
+        u.setEmail(inc.getNombreUsuario());
+        u.setName(inc.getNombreUsuario());
+        u.setPassword("");
+        inc.setUser(u);
+
+        try {
+            kafkaProducer.send("incidencia", ParserIncidencia.parseIncidenciaString(inc));
+        } catch (ParseException e) {
+            System.out.println("No se logro parsear la incidencia");
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -1,20 +1,16 @@
 package asw.incidences.controller;
 
-import java.util.Map;
-
+import asw.incidences.service.IncidenceService;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import asw.dbManagement.model.Incidence;
-import asw.incidences.service.IncidenceService;
+import java.util.Map;
 
 @RestController
 public class IncidenceRestController {
@@ -47,8 +43,5 @@ public class IncidenceRestController {
 		return "{\"error\": \"Could not connect\"}";
 	}
 
-	@ModelAttribute("incidence")
-	public Incidence getIncidence(){
-	    return new Incidence();
-	}
+
 }

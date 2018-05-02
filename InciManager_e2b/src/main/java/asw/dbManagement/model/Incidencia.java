@@ -1,4 +1,4 @@
-package inciDashboard.entities;
+package asw.dbManagement.model;
 
 import javax.persistence.*;
 import java.util.*;
@@ -27,7 +27,7 @@ public class Incidencia {
 	@MapKeyColumn(name = "CLAVE", nullable = true)
 	@Column(name = "VALUE")
 	private Map<String, String> campos = new HashMap<String, String>(); // Resto de valores que pueden variar
-																		// dependiendo de la incidencia
+	// dependiendo de la incidencia
 
 	@ElementCollection
 	@CollectionTable(name = "tags")
@@ -43,7 +43,7 @@ public class Incidencia {
 	}
 
 	public Incidencia(String nombreUsuario, String nombre, String descripcion, Coordenadas coordenadas, Date caducidad,
-			User user, Map<String, String> campos, List<String> etiquetas) {
+					  User user, Map<String, String> campos, List<String> etiquetas) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.nombre = nombre;
@@ -161,7 +161,7 @@ public class Incidencia {
 	public List<String> getEtiquetas() {
 		return etiquetas;
 	}
-	
+
 	public String listEtiquetas() {
 		String lista = "";
 		for(String tag : etiquetas)
@@ -210,4 +210,7 @@ public class Incidencia {
 		return toString + " ]";
 	}
 
+	public void setUser(User u) {
+		this.user = u;
+	}
 }
