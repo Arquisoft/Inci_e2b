@@ -1,47 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
 </head>
+<script>
+	function habilitar(check, text){
+		text.disabled = !check;
+	}
+</script>
 <body>
-<div class="container">
-<h1>Enviar incidencia</h1>
-<h3>Este formulario unicamente debe ser utilizado por agentes de tipo persona</h3>
-<form id="rendered-form" action="/input" method="post">
-<div class="rendered-form">
-<div class="fb-text form-group field-usuario">
-<label for="usuario" class="fb-text-label">Usuario<span class="fb-required">*</span></label>
-<input type="text" class="form-control" name="usuario" id="usuario" required="required" aria-required="true">
-</div>
-<div class="fb-text form-group field-password">
-<label for="password" class="fb-text-label">Contraseña<span class="fb-required">*</span></label>
-<input type="password" class="form-control" name="password" id="password" required="required" aria-required="true"></div>
-<div class="fb-text form-group field-nombre"><label for="nombre" class="fb-text-label">Nombre<span class="fb-required">*</span></label>
-<input type="text" class="form-control" name="nombre" id="nombre" required="required" aria-required="true"></div>
-<div class="fb-textarea form-group field-descripcion"><label for="descripcion" class="fb-textarea-label">Descripcion<span class="fb-required">*</span></label>
-<textarea type="textarea" class="form-control" name="descripcion" id="descripcion" required="required" aria-required="true"></textarea></div>
-<div class="fb-text form-group field-localizacion"><label for="localizacion" class="fb-text-label">Localizacion<span class="fb-required">*</span></label>
-<input type="text" class="form-control" name="localizacion" id="localizacion" required="required" aria-required="true"></div><div class="fb-textarea form-group field-etiquetas">
-<label for="etiquetas" class="fb-textarea-label">Etiquetas</label>
-<textarea type="textarea" placeholder="Lista de palabras separadas por comas que permitirán categorizar las incidencias" class="form-control" name="etiquetas" id="etiquetas" title="Lista de palabras separadas por comas que permitirán categorizar las incidencias">
-</textarea>
-</div>
-<button type="submit" class="btn btn-primary" name="button-1521897076876" style="primary" id="button-1521897076876">Enviar</button>
-</div>
-</form>
-<br>
-<div th:switch="${succsed}">
-<div th:case="true" class="alert alert-success">
-  <strong>Enviado</strong> La incidencia se ha enviado con exito
-</div>
-<div th:case="false" class="alert alert-danger">
-  <strong>Error </strong><i th:text="${error}"></i>
-</div>
-</div>
-</div>
+	<div class="container">
+		<h1>Enviar incidencia</h1>
+		<h3>Formulario para los agentes de tipo persona</h3>
+		<form id="rendered-form" action="/input" method="post">
+			<div class="rendered-form">
+				<div class="fb-text form-group field-usuario">
+					<label for="usuario" class="fb-text-label"><b>Usuario<span
+						class="fb-required">*</span></b></label> <input type="text"
+						class="form-control" name="usuario" id="usuario"
+						required="required" aria-required="true">
+				</div>
+				<div class="fb-text form-group field-password">
+					<label for="password" class="fb-text-label"><b>Contraseña<span
+						class="fb-required">*</span></b></label> <input type="password"
+						class="form-control" name="password" id="password"
+						required="required" aria-required="true">
+				</div>
+				<div class="fb-text form-group field-nombre">
+					<label for="nombre" class="fb-text-label"><b>Nombre<span
+						class="fb-required">*</span></b></label> <input type="text"
+						class="form-control" name="nombre" id="nombre" required="required"
+						aria-required="true">
+				</div>
+				<div class="fb-textarea form-group field-descripcion">
+					<label for="descripcion" class="fb-textarea-label"><b>Descripcion<span
+						class="fb-required">*</span></b></label>
+					<textarea type="textarea" class="form-control" name="descripcion"
+						id="descripcion" required="required" aria-required="true"></textarea>
+				</div>
+				<div class="fb-text form-group field-localizacion">
+					<label for="localizacion" class="fb-text-label"><b>Localizacion<span
+						class="fb-required">*</span></b></label> 
+					<input type="text"
+						class="form-control" name="localizacion" id="localizacion"
+						required="required" aria-required="true">
+				</div>
+				<div class="fb-textarea form-group field-etiquetas">
+					<label for="etiquetas" class="fb-textarea-label"><b>Etiquetas</b></label>
+					<textarea type="textarea"
+						placeholder="Lista de palabras separadas por comas que permitirán categorizar las incidencias"
+						class="form-control" name="etiquetas" id="etiquetas"
+						title="Lista de palabras separadas por comas que permitirán categorizar las incidencias">
+					</textarea>
+				</div>
+				<div class="fb-checkbox form-group field-campos">
+					<label for="campos" class="fb-checkbox-label"><b>Campos</b></label><br>
+					<label><input type="checkbox" value="temperatura" id = "temperaturaCh" onclick="habilitar(this.checked, temperaturaTx)"> Temperatura</label>
+					<input type="number" name="temperatura" disabled id = "temperaturaTx">
+					<br>
+					<label><input type="checkbox" value="velocidadViento" id = "velocidadVientoCh" onclick="habilitar(this.checked, velocidadVientoTx)"> Velocidad del viento</label>
+					<input type="number" name="velocidadViento" disabled id = "velocidadVientoTx">
+					<br>
+					<label><input type="checkbox" value="nivelAgua" id = "nivelAguaCh" onclick="habilitar(this.checked, nivelAguaTx)"> Nivel del agua</label>
+					<input type="number" name="nivelAgua" disabled id = "nivelAguaTx">
+					<br>
+					<label><input type="checkbox" value="personasAfectadas" id = "personasAfectadasCh" onclick="habilitar(this.checked, personasAfectadasTx)"> Personas afectadas</label>
+					<input type="number" name="personasAfectadas" disabled id = "personasAfectadasTx">
+					<br>			
+				</div>
+				<button type="submit" class="btn btn-primary"
+					name="button-1521897076876" style="" id="button-1521897076876">Enviar</button>
+			</div>
+		</form>
+		<br>
+		<div th:switch="${succsed}">
+			<div th:case="true" class="alert alert-success">
+				<strong>Enviado</strong> La incidencia se ha enviado con exito
+			</div>
+			<div th:case="false" class="alert alert-danger">
+				<strong>Error </strong><i th:text="${error}"></i>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
+
+
