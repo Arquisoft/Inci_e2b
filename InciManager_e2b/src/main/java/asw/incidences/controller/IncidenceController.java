@@ -62,6 +62,25 @@ public class IncidenceController {
 		}
 		return "input";
 	}
+
+	@RequestMapping(method = RequestMethod.POST,value = "check")
+	public String check(Model m, @RequestParam String usuario,
+						@RequestParam String password){
+
+		try {
+			HttpResponse<JsonNode> res = incService.checkUser(usuario,password, String.valueOf(1));
+			if(res.getStatus() == 200){
+
+			}else{
+				m.addAttribute("succsed", false);
+				m.addAttribute("error", res.getBody().toString());
+			}
+		} catch (UnirestException  e) {
+			e.printStackTrace();
+			m.addAttribute("succsed", false);
+		}
+		return "check";
+	}
 	
 	
 }
