@@ -45,7 +45,7 @@ public class IncidenceService {
 		Incidencia inc = new Incidencia();
         inc.setNombreUsuario((String) payload.get("usuario"));
         inc.setNombre((String) payload.get("nombre"));
-        inc.setCampos(new HashMap<>());
+        inc.setCampos((HashMap) payload.get("campos"));
 
         if( payload.get("etiquetas") == null){
             inc.setComentarios(new HashSet<>());

@@ -34,7 +34,7 @@ public class IncidenceController {
 	 @RequestParam String descripcion,
 	 @RequestParam String latitud,
 	 @RequestParam String longitud,
-	 @RequestParam(required = false) String etiquetas){
+	 @RequestParam(required = false) String etiquetas,@RequestParam Map<String,String> requestParams){
 		try {
 			HttpResponse<JsonNode> res = incService.checkUser(usuario,password, String.valueOf(1));
 			if(res.getStatus() == 200){
@@ -45,6 +45,13 @@ public class IncidenceController {
 				map.put("descripcion",descripcion);
 				map.put("latitud",latitud);
 				map.put("longitud",longitud);
+                Map<String,String> campos = new HashMap<>();
+                for(String s : requestParams.keySet()){
+                    if(s.contains("campo-")){
+                        campos.put(s.replace("campo-",""),requestParams.get(s));
+                    }
+                }
+				map.put("campos", campos);
 				if(etiquetas == null){
 				    etiquetas = "";
                 }
