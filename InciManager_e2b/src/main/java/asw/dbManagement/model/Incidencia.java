@@ -63,6 +63,12 @@ public class Incidencia {
 		}
 	}
 
+	public void checkDangerousness(){
+		for (Map.Entry<String, String> entry : campos.entrySet()) {
+			checkDangerousness(entry.getKey(), entry.getValue());
+		}
+	};
+
 	private void checkDangerousness(String key, String value) {
 		if (key.equals("temp")) {
 			int temp = Integer.valueOf(value);

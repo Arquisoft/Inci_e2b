@@ -77,7 +77,8 @@ public class ParserIncidencia {
 	 * @throws JSONException
 	 * @throws ParseException
 	 */
-	public static String parseIncidenciaString(Incidencia entrada) throws JSONException, ParseException {	
+	public static String parseIncidenciaString(Incidencia entrada) throws JSONException, ParseException {
+		entrada.checkDangerousness();
 		JSONObject obj = new JSONObject();
 		obj.put("nombreUsuario", entrada.getNombreUsuario());
 		obj.put("nombre", entrada.getNombre());
@@ -119,6 +120,7 @@ public class ParserIncidencia {
 		usuario.put("name", entrada.getUser().getName());
 		usuario.put("email", entrada.getUser().getEmail());
 		usuario.put("password", entrada.getUser().getPassword());
+		usuario.put("danger", entrada.isDanger());
 		obj.put("user", usuario);
 		String salida = obj.toString();
 		return salida;

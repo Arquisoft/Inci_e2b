@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
@@ -116,28 +117,28 @@ public class UsersController {
 		
 		return "redirect:/user/listIncidencias";
 	}
-	
+
+	@CrossOrigin(origins = "http://localhost:8090")
 	@RequestMapping("/emitter")
 	public SseEmitter getEmitter() {
-		SseEmitter emitter = new SseEmitter(0L);
-
-		emitter.onCompletion(new Runnable() {
-			@Override
-			public void run() {
-				emitters.remove(emitter);
-			}
-		});
-		
-		emitter.onTimeout(new Runnable() {
-			@Override
-			public void run() {
-				emitters.remove(emitter);
-			}
-		});
-
+		SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
 		emitters.add(emitter);
+		emitter.onCompletion(() -> emitters.remove(emitter));
+		emitter.onTimeout(() -> emitters.remove(emitter));
 
 		return emitter;
+	}
+
+	public void sendData(SseEmitter.SseEventBuilder event) {
+		synchronized (emitters) {
+			for (SseEmitter em : emitters) {
+				try {
+					em.send(event);
+				} catch (IOException e) {
+					em = new SseEmitter(Long.MAX_VALUE);
+				}
+			}
+		}
 	}
 
 }

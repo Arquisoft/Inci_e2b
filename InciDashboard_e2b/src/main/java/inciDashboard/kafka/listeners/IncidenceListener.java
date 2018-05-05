@@ -1,5 +1,6 @@
 package inciDashboard.kafka.listeners;
 
+import inciDashboard.controllers.UsersController;
 import inciDashboard.entities.Incidencia;
 import inciDashboard.kafka.Topics;
 import inciDashboard.parsers.ParserIncidencia;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.annotation.ManagedBean;
 import java.text.ParseException;
@@ -21,10 +23,13 @@ public class IncidenceListener {
     private static final Logger logger = Logger.getLogger(IncidenceListener.class);
 
     @Autowired
-    private IncidenciasService incidenciasConcurrentes;
+    private IncidenciasService incidencias;
 
     @Autowired
     private ParserIncidencia parserJSON;
+
+    @Autowired
+    private UsersController iCon;
 
     @KafkaListener(topics = Topics.NEW_INCIDENCE)
     public void listen(String data) throws JSONException, ParseException {
@@ -34,9 +39,12 @@ public class IncidenceListener {
 
 
         if (incidencia != null) {
-            System.out.println(incidencia.isDanger());
             incidencia.setUser(null);
-            incidenciasConcurrentes.addIndicenciaFull(incidencia);
+            incidencias.addIndicenciaFull(incidencia);
+
+            Incidencia is = incidencias.getIncidenciasByUser(null).stream().filter(f -> f.getNombreUsuario().equals(incidencia.getNombreUsuario()) &&
+                    f.getDescripcion().equals(incidencia.getDescripcion()) && f.getNombre().equals(incidencia.getNombre())).findFirst().orElse(null);
+            iCon.sendData(SseEmitter.event().name(("aviso")).data( parserJSON.parseIncidenciaString(is) ));
         }
     }
 

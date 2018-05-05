@@ -16,7 +16,7 @@ public class Incidencia {
 	private Coordenadas coordenadas;
 	private InciStatus estado;
 
-	@OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Comentario> comentarios = new HashSet<Comentario>();
 
 	@Temporal(value = TemporalType.DATE)
@@ -29,7 +29,7 @@ public class Incidencia {
 	private Map<String, String> campos = new HashMap<String, String>(); // Resto de valores que pueden variar
 																		// dependiendo de la incidencia
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "tags")
 	private List<String> etiquetas = new ArrayList<String>();
 

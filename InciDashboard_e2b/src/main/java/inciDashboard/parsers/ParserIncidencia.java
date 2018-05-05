@@ -1,25 +1,14 @@
 package inciDashboard.parsers;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import inciDashboard.entities.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import inciDashboard.entities.Comentario;
-import inciDashboard.entities.Coordenadas;
-import inciDashboard.entities.InciStatus;
-import inciDashboard.entities.Incidencia;
-import inciDashboard.entities.User;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Component
 public class ParserIncidencia {
@@ -89,6 +78,7 @@ public class ParserIncidencia {
 	 */
 	public static String parseIncidenciaString(Incidencia entrada) throws JSONException, ParseException {	
 		JSONObject obj = new JSONObject();
+		obj.put("id", entrada.getId());
 		obj.put("nombreUsuario", entrada.getNombreUsuario());
 		obj.put("nombre", entrada.getNombre());
 		obj.put("descripcion", entrada.getDescripcion());
@@ -126,10 +116,14 @@ public class ParserIncidencia {
 		obj.put("etiquetas", etiquetas);
 		
 		JSONObject usuario = new JSONObject();
-		usuario.put("name", entrada.getUser().getName());
-		usuario.put("email", entrada.getUser().getEmail());
-		usuario.put("password", entrada.getUser().getPassword());
+		if(entrada.getUser() != null) {
+			usuario.put("name", entrada.getUser().getName());
+			usuario.put("email", entrada.getUser().getEmail());
+			usuario.put("password", entrada.getUser().getPassword());
+			usuario.put("danger", entrada.isDanger());
+		}
 		obj.put("user", usuario);
+
 		String salida = obj.toString();
 		return salida;
 	}
