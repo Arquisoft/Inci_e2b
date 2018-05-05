@@ -1,4 +1,4 @@
-package inciDashboard.kafka.producers.util;
+package inciDashboard.kafka;
 
 public class Topics {
 	public static final String UPDATE_STATUS = "updateStatus";

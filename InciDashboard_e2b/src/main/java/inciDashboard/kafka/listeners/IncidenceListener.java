@@ -1,9 +1,9 @@
 package inciDashboard.kafka.listeners;
 
-import inciDashboard.controllers.ConcurrentIncidencesController;
 import inciDashboard.entities.Incidencia;
-import inciDashboard.kafka.producers.util.Topics;
+import inciDashboard.kafka.Topics;
 import inciDashboard.parsers.ParserIncidencia;
+import inciDashboard.services.IncidenciasService;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class IncidenceListener {
     private static final Logger logger = Logger.getLogger(IncidenceListener.class);
 
     @Autowired
-    private ConcurrentIncidencesController incidenciasConcurrentes;
+    private IncidenciasService incidenciasConcurrentes;
 
     @Autowired
     private ParserIncidencia parserJSON;
@@ -34,12 +34,8 @@ public class IncidenceListener {
 
 
         if (incidencia != null) {
-            System.out.println(incidencia.toString());
-            System.out.println(incidencia.listEtiquetas());
-            incidencia.getCampos().keySet().forEach(c -> System.out.println(c));
-
             incidencia.setUser(null);
-            incidenciasConcurrentes.saveIncidence(incidencia);
+            incidenciasConcurrentes.addIndicenciaFull(incidencia);
         }
     }
 

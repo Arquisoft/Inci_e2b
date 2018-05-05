@@ -41,7 +41,7 @@ public class Incidencia {
 		user = u;
 	}
 
-	private boolean danger = false;
+	private boolean danger;
 
 	public Incidencia() {
 	}
@@ -64,21 +64,26 @@ public class Incidencia {
 	}
 
 	private void checkDangerousness(String key, String value) {
-		if (key.equals("temp")) {
-			int temp = Integer.valueOf(value);
-			{
-				if (temp > 40 || temp < 1) {
-					danger = true;
+		try {
+			if (key.equals("temp")) {
+				int temp = Integer.valueOf(value);
+				{
+					if (temp > 40 || temp < 1) {
+						danger = true;
+					}
+				}
+			} else if (key.equals("wspeed")) {
+				int speed = Integer.valueOf(value);
+				{
+					if (speed > 60 || speed < 5) {
+						danger = true;
+					}
 				}
 			}
-		} else if (key.equals("wspeed")) {
-			int speed = Integer.valueOf(value);
-			{
-				if (speed > 60 || speed < 5) {
-					danger = true;
-				}
-			}
+		}catch (Exception e){
+			e.printStackTrace();
 		}
+
 	}
 
 	public void addCampo(String key, String value) {

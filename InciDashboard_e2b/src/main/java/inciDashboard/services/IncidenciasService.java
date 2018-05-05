@@ -1,19 +1,28 @@
 package inciDashboard.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import inciDashboard.entities.Comentario;
 import inciDashboard.entities.InciStatus;
 import inciDashboard.entities.Incidencia;
 import inciDashboard.entities.User;
 import inciDashboard.repositories.IncidenciasRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class IncidenciasService {
+
+    @Autowired
+    private UsersService usersService;
+
+    @Autowired
+    private CoordenadasService coordenadasService;
+
+    @Autowired
+    private CommentsService commentsService;
     @Autowired
     private IncidenciasRepository incidenciasRepository;
 
@@ -31,6 +40,16 @@ public class IncidenciasService {
 	incidenciasRepository.save(incidencia);
     }
 
+    public void addIndicenciaFull(Incidencia incidence) {
+        if(incidence.getUser() != null) {
+            usersService.addUser(incidence.getUser());
+        }
+        coordenadasService.addCoordenadas(incidence.getCoordenadas());
+        addIndicencia(incidence);
+        for(Comentario c: incidence.getComentarios())
+            commentsService.addComentario(c);
+    }
+
     public void deleteIncidencia(Long id) {
 	incidenciasRepository.delete(id);
     }
@@ -41,6 +60,10 @@ public class IncidenciasService {
 
     public void updateStatus(Enum<InciStatus> estado, Long idIncidencia) {
 	incidenciasRepository.setStatus(estado, idIncidencia);
+    }
+
+    public void updateUser(User u, Long idIncidencia) {
+        incidenciasRepository.setUser(u, idIncidencia);
     }
 
     public Map<String, String> getDangerousValues(Long id) {
