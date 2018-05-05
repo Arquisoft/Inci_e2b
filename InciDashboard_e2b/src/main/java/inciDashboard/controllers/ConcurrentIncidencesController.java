@@ -1,17 +1,16 @@
 package inciDashboard.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import inciDashboard.entities.Comentario;
 import inciDashboard.entities.Incidencia;
 import inciDashboard.services.CommentsService;
 import inciDashboard.services.CoordenadasService;
 import inciDashboard.services.IncidenciasService;
 import inciDashboard.services.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ConcurrentIncidencesController {
@@ -37,7 +36,9 @@ public class ConcurrentIncidencesController {
 	}
 	
 	private void addIncidence(Incidencia incidence) {
-		usersService.addUser(incidence.getUser());
+		if(incidence.getUser() != null) {
+			usersService.addUser(incidence.getUser());
+		}
 		coordenadasService.addCoordenadas(incidence.getCoordenadas());
 		incidenciasService.addIndicencia(incidence);
 		for(Comentario c: incidence.getComentarios())

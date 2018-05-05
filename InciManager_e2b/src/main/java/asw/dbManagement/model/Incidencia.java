@@ -33,6 +33,10 @@ public class Incidencia {
 	@CollectionTable(name = "tags")
 	private List<String> etiquetas = new ArrayList<String>();
 
+	public void setEtiquetas(List<String> et){
+		etiquetas = et;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

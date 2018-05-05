@@ -63,8 +63,7 @@
                         <textarea type="textarea"
                                   placeholder="Lista de palabras separadas por comas que permitirán categorizar las incidencias"
                                   class="form-control" name="etiquetas" id="etiquetas"
-                                  title="Lista de palabras separadas por comas que permitirán categorizar las incidencias">
-                        </textarea>
+                                  title="Lista de palabras separadas por comas que permitirán categorizar las incidencias"></textarea>
                     </div>
                     <div id="camposd" class="fb-textarea form-group field-etiquetas">
                         <label for="etiquetas" class="fb-textarea-label">Campos</label>
@@ -134,6 +133,9 @@
             $(this).parent().remove();
         });
     }
+</script>
+<script th:if="${second != null}">
+    $('#myTab li:nth-child(2) a').tab('show');
 </script>
 </body>
 </html>

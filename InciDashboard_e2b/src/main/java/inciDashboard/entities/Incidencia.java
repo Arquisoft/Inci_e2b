@@ -37,6 +37,10 @@ public class Incidencia {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	public void setUser(User u){
+		user = u;
+	}
+
 	private boolean danger = false;
 
 	public Incidencia() {

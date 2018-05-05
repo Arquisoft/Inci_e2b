@@ -17,25 +17,30 @@ import java.text.ParseException;
  */
 @ManagedBean
 public class IncidenceListener {
-	
-	private static final Logger logger = Logger.getLogger(IncidenceListener.class);
+
+    private static final Logger logger = Logger.getLogger(IncidenceListener.class);
 
     @Autowired
     private ConcurrentIncidencesController incidenciasConcurrentes;
-    
+
     @Autowired
     private ParserIncidencia parserJSON;
 
     @KafkaListener(topics = Topics.NEW_INCIDENCE)
     public void listen(String data) throws JSONException, ParseException {
-    	logger.info("New message received: \"" + data + "\"");
+        logger.info("New message received: \"" + data + "\"");
 
-    	Incidencia incidencia;
-    	incidencia = parserJSON.parseStringIncidencia(data);
+        Incidencia incidencia = parserJSON.parseStringIncidencia(data);
 
-    	System.out.println(incidencia.toString());
-		if(incidencia!=null)
-			incidenciasConcurrentes.saveIncidence(incidencia);
-	}
+
+        if (incidencia != null) {
+            System.out.println(incidencia.toString());
+            System.out.println(incidencia.listEtiquetas());
+            incidencia.getCampos().keySet().forEach(c -> System.out.println(c));
+
+            incidencia.setUser(null);
+            incidenciasConcurrentes.saveIncidence(incidencia);
+        }
+    }
 
 }

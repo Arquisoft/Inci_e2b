@@ -1,25 +1,33 @@
 package asw.incidences.controller;
 
+import asw.dbManagement.model.Incidencia;
+import asw.dbManagement.repository.IncidenceRepository;
 import asw.incidences.service.IncidenceService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
-public class IncidenceController {
+public class IncidenceController  implements ErrorController {
 	
 	@Autowired
 	public IncidenceService incService;
-	
+
+	@Autowired
+    public IncidenceRepository repo;
 
 	@RequestMapping("/")
 	public String send(){
@@ -70,14 +78,16 @@ public class IncidenceController {
 		return "input";
 	}
 
-	@RequestMapping(method = RequestMethod.POST,value = "check")
+	@RequestMapping(method = RequestMethod.POST,value = "/check")
 	public String check(Model m, @RequestParam String usuario,
 						@RequestParam String password){
-
+        m.addAttribute("incidenciasList",new ArrayList<Incidencia>());
 		try {
 			HttpResponse<JsonNode> res = incService.checkUser(usuario,password, String.valueOf(1));
 			if(res.getStatus() == 200){
-
+                List<Incidencia> r = repo.findByNombreUsuario(usuario);
+                m.addAttribute("incidenciasList", r);
+                return "check";
 			}else{
 				m.addAttribute("succsed", false);
 				m.addAttribute("error", res.getBody().toString());
@@ -86,8 +96,21 @@ public class IncidenceController {
 			e.printStackTrace();
 			m.addAttribute("succsed", false);
 		}
-		return "check";
+		m.addAttribute("second",true);
+        return "input";
 	}
-	
-	
+
+
+
+    private static final String PATH = "/error";
+
+    @RequestMapping(value = PATH)
+    public String error(HttpServletResponse httpServletResponse) {
+        return "redirect:/";
+    }
+
+    @Override
+    public String getErrorPath() {
+        return PATH;
+    }
 }

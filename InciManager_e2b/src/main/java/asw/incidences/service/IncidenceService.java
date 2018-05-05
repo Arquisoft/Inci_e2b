@@ -1,6 +1,9 @@
 package asw.incidences.service;
 
-import asw.dbManagement.model.*;
+import asw.dbManagement.model.Coordenadas;
+import asw.dbManagement.model.InciStatus;
+import asw.dbManagement.model.Incidencia;
+import asw.dbManagement.model.User;
 import asw.dbManagement.model.parsers.ParserIncidencia;
 import asw.kaffkaManagement.KafkaProducer;
 import com.mashape.unirest.http.HttpResponse;
@@ -46,22 +49,20 @@ public class IncidenceService {
         inc.setNombreUsuario((String) payload.get("usuario"));
         inc.setNombre((String) payload.get("nombre"));
         inc.setCampos((HashMap) payload.get("campos"));
+        inc.setComentarios(new HashSet<>());
+
 
         if( payload.get("etiquetas") == null){
-            inc.setComentarios(new HashSet<>());
+            inc.setEtiquetas(new ArrayList<>());
         }else if( payload.get("etiquetas") instanceof  String ){
             String[] et = ((String) payload.get("etiquetas")).split(",");
-            HashSet<Comentario> cs = new HashSet<>();
+            List<String> cs = new ArrayList<>();
             for(String e :et){
-                cs.add(new Comentario(e));
+                cs.add(e);
             }
-            inc.setComentarios(cs);
-        }else if(payload.get("etiquetas") instanceof  HashSet){
-            HashSet<Comentario> cs = new HashSet<>();
-            for(String e : (HashSet<String>)payload.get("etiquetas")){
-                cs.add(new Comentario(e));
-            }
-            inc.setComentarios(cs);
+            inc.setEtiquetas(cs);
+        }else if(payload.get("etiquetas") instanceof  List){
+            inc.setEtiquetas((List<String>) payload.get("etiquetas"));
         }
         inc.setCoordenadas(new Coordenadas(Double.valueOf((String) payload.get("latitud")),Double.valueOf((String) payload.get("longitud"))));
         inc.setDescripcion((String) payload.get("descripcion"));
