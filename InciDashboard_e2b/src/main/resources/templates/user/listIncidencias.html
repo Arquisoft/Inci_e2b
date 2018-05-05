@@ -85,7 +85,7 @@
                 <td><a th:if="${inci.danger} == true"
                        class="btn btn-danger" th:href="${'/incidence/' + inci.id}">Peligro</a>
                 </td>
-                <td><button id="asgme" class="btn btn-info" th:attr="inci=${inci.getId() }">Asignarmela</button></td>
+                <td><button class="asgme btn btn-info" th:attr="inci=${inci.getId() }">Asignarmela</button></td>
             </tr>
             </tbody>
         </table>
@@ -122,7 +122,7 @@
 
 
     asg = function () {
-        $("#asgme").click(function () {
+        $(".asgme").click(function () {
             $.post("/incidence/user/"+ $(this).attr("inci"), {}, function(result){
                 location.reload();
             });

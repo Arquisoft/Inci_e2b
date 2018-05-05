@@ -34,6 +34,7 @@ public class IncidenceListener {
 
 
         if (incidencia != null) {
+            System.out.println(incidencia.isDanger());
             incidencia.setUser(null);
             incidenciasConcurrentes.addIndicenciaFull(incidencia);
         }

@@ -67,18 +67,14 @@ public class Incidencia {
 		try {
 			if (key.equals("temp")) {
 				int temp = Integer.valueOf(value);
-				{
 					if (temp > 40 || temp < 1) {
 						danger = true;
 					}
-				}
 			} else if (key.equals("wspeed")) {
 				int speed = Integer.valueOf(value);
-				{
 					if (speed > 60 || speed < 5) {
 						danger = true;
 					}
-				}
 			}
 		}catch (Exception e){
 			e.printStackTrace();
