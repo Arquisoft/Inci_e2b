@@ -1,4 +1,4 @@
-package inciDashboard.entities;
+package asw.dbManagement.model;
 
 import javax.persistence.*;
 import java.util.*;
@@ -16,7 +16,7 @@ public class Incidencia {
 	private Coordenadas coordenadas;
 	private InciStatus estado;
 
-	@OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL)
 	private Set<Comentario> comentarios = new HashSet<Comentario>();
 
 	@Temporal(value = TemporalType.DATE)
@@ -27,27 +27,27 @@ public class Incidencia {
 	@MapKeyColumn(name = "CLAVE", nullable = true)
 	@Column(name = "VALUE")
 	private Map<String, String> campos = new HashMap<String, String>(); // Resto de valores que pueden variar
-																		// dependiendo de la incidencia
+	// dependiendo de la incidencia
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection
 	@CollectionTable(name = "tags")
 	private List<String> etiquetas = new ArrayList<String>();
+
+	public void setEtiquetas(List<String> et){
+		etiquetas = et;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	public void setUser(User u){
-		user = u;
-	}
-
-	private boolean danger;
+	private boolean danger = false;
 
 	public Incidencia() {
 	}
 
 	public Incidencia(String nombreUsuario, String nombre, String descripcion, Coordenadas coordenadas, Date caducidad,
-			User user, Map<String, String> campos, List<String> etiquetas) {
+					  User user, Map<String, String> campos, List<String> etiquetas) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.nombre = nombre;
@@ -63,23 +63,28 @@ public class Incidencia {
 		}
 	}
 
-	private void checkDangerousness(String key, String value) {
-		try {
-			if (key.equals("temp")) {
-				int temp = Integer.valueOf(value);
-					if (temp > 40 || temp < 1) {
-						danger = true;
-					}
-			} else if (key.equals("wspeed")) {
-				int speed = Integer.valueOf(value);
-					if (speed > 60 || speed < 5) {
-						danger = true;
-					}
-			}
-		}catch (Exception e){
-			e.printStackTrace();
+	public void checkDangerousness(){
+		for (Map.Entry<String, String> entry : campos.entrySet()) {
+			checkDangerousness(entry.getKey(), entry.getValue());
 		}
+	};
 
+	private void checkDangerousness(String key, String value) {
+		if (key.equals("temp")) {
+			int temp = Integer.valueOf(value);
+			{
+				if (temp > 40 || temp < 1) {
+					danger = true;
+				}
+			}
+		} else if (key.equals("wspeed")) {
+			int speed = Integer.valueOf(value);
+			{
+				if (speed > 60 || speed < 5) {
+					danger = true;
+				}
+			}
+		}
 	}
 
 	public void addCampo(String key, String value) {
@@ -166,7 +171,7 @@ public class Incidencia {
 	public List<String> getEtiquetas() {
 		return etiquetas;
 	}
-	
+
 	public String listEtiquetas() {
 		String lista = "";
 		for(String tag : etiquetas)
@@ -215,4 +220,7 @@ public class Incidencia {
 		return toString + " ]";
 	}
 
+	public void setUser(User u) {
+		this.user = u;
+	}
 }

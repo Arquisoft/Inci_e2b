@@ -1,6 +1,7 @@
-package inciDashboard.parsers;
+package asw.dbManagement.model.parsers;
 
-import inciDashboard.entities.*;
+
+import asw.dbManagement.model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +23,7 @@ public class ParserIncidencia {
 	 * @throws JSONException
 	 * @throws ParseException
 	 */
-	public static Incidencia parseStringIncidencia(String entrada) throws JSONException, ParseException {		
+	public static Incidencia parseStringIncidencia(String entrada) throws JSONException, ParseException {
 		JSONObject obj = new JSONObject(entrada);
 		JSONObject coordenadas = obj.getJSONObject("coordenadas");
 		JSONObject user = obj.getJSONObject("user");
@@ -76,9 +77,9 @@ public class ParserIncidencia {
 	 * @throws JSONException
 	 * @throws ParseException
 	 */
-	public static String parseIncidenciaString(Incidencia entrada) throws JSONException, ParseException {	
+	public static String parseIncidenciaString(Incidencia entrada) throws JSONException, ParseException {
+		entrada.checkDangerousness();
 		JSONObject obj = new JSONObject();
-		obj.put("id", entrada.getId());
 		obj.put("nombreUsuario", entrada.getNombreUsuario());
 		obj.put("nombre", entrada.getNombre());
 		obj.put("descripcion", entrada.getDescripcion());
@@ -116,14 +117,11 @@ public class ParserIncidencia {
 		obj.put("etiquetas", etiquetas);
 		
 		JSONObject usuario = new JSONObject();
-		if(entrada.getUser() != null) {
-			usuario.put("name", entrada.getUser().getName());
-			usuario.put("email", entrada.getUser().getEmail());
-			usuario.put("password", entrada.getUser().getPassword());
-			usuario.put("danger", entrada.isDanger());
-		}
+		usuario.put("name", entrada.getUser().getName());
+		usuario.put("email", entrada.getUser().getEmail());
+		usuario.put("password", entrada.getUser().getPassword());
+		usuario.put("danger", entrada.isDanger());
 		obj.put("user", usuario);
-
 		String salida = obj.toString();
 		return salida;
 	}

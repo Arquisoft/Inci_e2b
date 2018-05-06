@@ -1,39 +1,27 @@
 package inciDashboard.controllers;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
 import inciDashboard.entities.Comentario;
 import inciDashboard.entities.InciStatus;
 import inciDashboard.entities.Incidencia;
 import inciDashboard.entities.User;
-import inciDashboard.kafka.producers.KafkaProducer;
 import inciDashboard.services.CommentsService;
 import inciDashboard.services.IncidenciasService;
 import inciDashboard.services.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.*;
 
 @Controller
 public class UsersController {
 
 	@Autowired
 	private IncidenciasService incidenciasService;
-	
-	@Autowired
-	private ConcurrentIncidencesController listaIncidenciasConcurrentes;
 
 	@Autowired
 	private CommentsService commentsService;
@@ -41,8 +29,8 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 	
-	@Autowired
-	private KafkaProducer kafka;
+	/*@Autowired
+	private KafkaProducer kafka;*/
 
 	public List<SseEmitter> emitters = Collections.synchronizedList(new ArrayList<SseEmitter>());
 
@@ -60,6 +48,8 @@ public class UsersController {
 	@RequestMapping("/user/listIncidencias")
 	public String getListadoIncidencias(Model model, Principal principal) {
 		List<Incidencia> incidencias = incidenciasService.getIncidenciasByUser(usersService.getUserByEmail(principal.getName()));
+		List<Incidencia> incidenciasUn = incidenciasService.getIncidenciasByUser(null);
+		model.addAttribute("incidenciasListUnsigned",incidenciasUn);
 		model.addAttribute("incidenciasList",	incidencias);
 
 		return "user/listIncidencias";
@@ -67,15 +57,9 @@ public class UsersController {
 	
 	@RequestMapping("/user/updateIncidencias")
 	public String update(Model model, Principal principal) {
-		List<Incidencia> incidencias = incidenciasService.getIncidenciasByUser(usersService.getUserByEmail(principal.getName()));
-		List<Incidencia> incidenciasConcurrentes = listaIncidenciasConcurrentes.getIncidenciasConcurrentes();
-		
-		if(!incidenciasConcurrentes.isEmpty()) {
-			incidenciasConcurrentes.stream().forEach(incidencias::add);
-		}
-		model.addAttribute("incidenciasList",	incidencias);
-
-		return "user/listIncidencias  :: tableListIncidencias";
+		List<Incidencia> incidenciasUn = incidenciasService.getIncidenciasByUser(null);
+		model.addAttribute("incidenciasListUnsigned",	incidenciasUn);
+		return "user/listIncidencias  :: tableListIncidenciasUn";
 	}
 
 	@RequestMapping("/user/listComments/{idIncidencia}")
@@ -129,32 +113,32 @@ public class UsersController {
 		original.setEstado(estado);
 		incidenciasService.addIndicencia(original);
 		
-		kafka.updateStatus(String.valueOf(idIncidencia), estado.toString());
+		//kafka.updateStatus(String.valueOf(idIncidencia), estado.toString());
 		
 		return "redirect:/user/listIncidencias";
 	}
-	
+
+	@CrossOrigin(origins = "http://localhost:8090")
 	@RequestMapping("/emitter")
 	public SseEmitter getEmitter() {
-		SseEmitter emitter = new SseEmitter(0L);
-
-		emitter.onCompletion(new Runnable() {
-			@Override
-			public void run() {
-				emitters.remove(emitter);
-			}
-		});
-		
-		emitter.onTimeout(new Runnable() {
-			@Override
-			public void run() {
-				emitters.remove(emitter);
-			}
-		});
-
+		SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
 		emitters.add(emitter);
+		emitter.onCompletion(() -> emitters.remove(emitter));
+		emitter.onTimeout(() -> emitters.remove(emitter));
 
 		return emitter;
+	}
+
+	public void sendData(SseEmitter.SseEventBuilder event) {
+		synchronized (emitters) {
+			for (SseEmitter em : emitters) {
+				try {
+					em.send(event);
+				} catch (IOException e) {
+					em = new SseEmitter(Long.MAX_VALUE);
+				}
+			}
+		}
 	}
 
 }
