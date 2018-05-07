@@ -80,7 +80,7 @@ public class IncidenceService {
         inc.setUser(u);
 
         try {
-            kafkaProducer.send("incidencia", ParserIncidencia.parseIncidenciaString(inc));
+            kafkaProducer.send("rjkjinkm-incidencia", ParserIncidencia.parseIncidenciaString(inc));
         } catch (ParseException e) {
             System.out.println("No se logro parsear la incidencia");
             e.printStackTrace();
