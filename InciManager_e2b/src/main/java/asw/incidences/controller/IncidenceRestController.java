@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -32,6 +33,12 @@ public class IncidenceRestController {
 			if(response.getStatus() != 200){
 				return response.getBody().toString();
 			}else if(response.getStatus() == 200){
+				Map<String,String> campos = new HashMap<>();
+				for(String s : payload.keySet()){
+					if(s.contains("campo-")){
+						payload.put(s.replace("campo-",""),payload.get(s));
+					}
+				}
 				incService.sendKaffka(payload);
 				return response.getBody().toString();
 			}
