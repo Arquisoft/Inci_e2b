@@ -144,8 +144,10 @@ public class RList implements ReadList {
 					user = getSensorData(list);
 				}
 			}
-			if (user != null)
-			insert.save(user);
+			if (user != null) {
+				insert.save(user);
+				return;
+			}
 		// getaF().saveData(user);
 		}
 	}

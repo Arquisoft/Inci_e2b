@@ -142,10 +142,10 @@ public class ParserTest {
 	public void testReaderSingleton() throws DocumentException {
 		ReaderSingleton rS = ReaderSingleton.getInstance();
 		rS.loadFile("cadenaIncorrecta","cadenaIncorrecta");
-		rS.loadFile("test.xlsx", "users.csv");
+		rS.loadFile("users.csv", "test.xlsx");
 		ReaderSingleton rS1 = ReaderSingleton.getInstance();
 		rS.loadFile("cadenaIncorrecta","cadenaIncorrecta");
-		rS.loadFile("test.xlsx", "users.csv");
+		rS.loadFile("users.csv", "test.xlsx");
 		assertEquals(rS, rS1);
 	}
 
