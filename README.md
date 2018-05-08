@@ -7,3 +7,7 @@
 * Gemma González Gil (UO236976)
 * Erik Gabriel González García (UO224164)
 * Fernando Sánchez Canella (UO252469)
+
+# Ejecución
+* InciManager: http://54.191.187.104:8090
+* InciDashboard: http://52.88.183.164:8091
