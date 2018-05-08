@@ -23,7 +23,7 @@ public class IncidenceService {
 	private KafkaProducer kafkaProducer;
 
 	public HttpResponse<JsonNode> checkUser(String user, String pass, String kind) throws UnirestException {
-		HttpResponse<JsonNode> response = Unirest.post("http://52.88.183.164:8080/user")
+		HttpResponse<JsonNode> response = Unirest.post("http://18.236.140.130:8080/user")
 				.header("content-type", "application/json").header("cache-control", "no-cache")
 				.body("{\n\"login\":\"" + user + "\",\n\"password\":\"" + pass + "\",\n\"kind\":\"" + kind + "\"\n}\n")
 				.asJson();
