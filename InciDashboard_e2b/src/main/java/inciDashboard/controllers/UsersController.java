@@ -57,7 +57,8 @@ public class UsersController {
     public String getListadoIncidencias(Model model, Principal principal) {
         List<Incidencia> incidencias = incidenciasService.getIncidenciasByUser(usersService.getUserByEmail(principal.getName()));
         incidencias.stream().forEach(f -> System.out.println(f));
-        incidencias = incidencias.stream().filter(f -> f.getEstado() != InciStatus.CERRADA && f.getCaducidad().before(new Date())).collect(Collectors.toList());
+        incidencias = incidencias.stream().filter(f -> f.getEstado() != InciStatus.CERRADA && f.getCaducidad().after(new Date(System.currentTimeMillis()
+        -(3600000 * 24)))).collect(Collectors.toList());
         List<Incidencia> incidenciasUn = incidenciasService.getIncidenciasByUser(null);
         model.addAttribute("incidenciasListUnsigned", incidenciasUn);
         model.addAttribute("incidenciasList", incidencias);
