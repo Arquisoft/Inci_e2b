@@ -9,7 +9,7 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>  
 		<properties>
 			<property name="eclipselink.ddl-generation" 
-					  value="create-or-extend-tables"/>
+					  value="drop-and-create-tables"/>
 			<property name="javax.persistence.jdbc.driver" 
 					  value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" 
