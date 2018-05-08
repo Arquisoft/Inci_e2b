@@ -4,7 +4,15 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
 				<li sec:authorize="isAuthenticated()">
-					<a href="/logout" th:text="Logout"> 
+					<a href="/user/listIncidencias" th:text="Panel">
+						<span class="glyphicon glyphicon-log-out"></span>
+					</a>
+				<li sec:authorize="isAuthenticated()">
+					<a href="/user/stats" th:text="Estadisticas">
+						<span class="glyphicon glyphicon-log-out"></span>
+					</a>
+				<li sec:authorize="isAuthenticated()">
+					<a href="/logout">Cerrar sesion
 						<span class="glyphicon glyphicon-log-out"></span>
 				</a></li>
 			</ul>
