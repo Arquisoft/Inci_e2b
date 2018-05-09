@@ -19,3 +19,4 @@ https://github.com/Arquisoft/Agents_e2b
 - Ejecutar Kafka para el envio de mensajes (https://kafka.apache.org/) para ello iniciar el zookeper con bin\windows\zookeeper-server-start.bat config\zookeeper.properties y Kafka con bin\windows\kafka-server-start.bat config\server.properties (en el caso de Windows)
 - Iniciar el inciManager
 - Enviar incidencias mediante http://localhost:8090/ o realiza a la URL http://localhost:8090/incidence/send una peticion POST
+- En remoto la ip es: 54.191.187.104:8090/ y el usuario: juantp@example.com con contraseña: pass
